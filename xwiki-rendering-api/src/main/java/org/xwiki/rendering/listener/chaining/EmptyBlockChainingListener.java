@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.xwiki.rendering.listener.chaining;
 
 import java.util.ArrayDeque;
@@ -455,7 +456,11 @@ public class EmptyBlockChainingListener extends AbstractChainingListener
 
     private void stopContainerBlock()
     {
+      // fix for issue XRENDERING-422.
+      // if the size of containerBlockStates is not empty then it is allowed to pop from it.
+      if(!this.containerBlockStates.isEmpty()){
         this.containerBlockStates.pop();
+        }
     }
 
     private void markNotEmpty()
